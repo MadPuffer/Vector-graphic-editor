@@ -1,7 +1,7 @@
 ﻿/*
- * Figures-1
+ * Figures-4
  * Kotdusov B.M 220
- * 10.04.22
+ * 30.05.22
  */
 
 using System;
@@ -16,37 +16,37 @@ namespace Figures
     public abstract class Figure
     {
         public int startX, startY, endX, endY;
-        public StrokeData Stroke { get; }
+        public StrokeData Stroke { get; set; }
 
         protected Figure(int startX, int startY, int endX, int endY)
         {
-            Stroke = new StrokeData("#000000", 2f);
+            Stroke = new StrokeData(Color.Black, 2f);
             this.startX = startX;
             this.startY = startY;
             this.endX = endX;
             this.endY = endY;
         }
 
-        protected Figure(int startX, int startY, int endX, int endY, string HEXStrokeColor, float strokeWidth)
+        protected Figure(int startX, int startY, int endX, int endY, Color strokeColor, float strokeWidth)
         {
             this.startX = startX;
             this.startY = startY;
             this.endX = endX;
             this.endY = endY;
-            Stroke = new StrokeData(HEXStrokeColor, strokeWidth);
+            Stroke = new StrokeData(strokeColor, strokeWidth);
         }
 
-        public abstract void Draw(PaintEventArgs e, Pen pen);
+        public abstract void Draw(PaintEventArgs e);
 
     }
 
     [Serializable]
     public struct StrokeData
     {
-        private string color; // HEX color
-        private float width; // Stroke width
+        public Color color; //stroke color
+        public float width; // Stroke width
 
-        public StrokeData(string color, float width)
+        public StrokeData(Color color, float width)
         {
             this.color = color;
             this.width = width;

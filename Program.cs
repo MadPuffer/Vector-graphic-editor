@@ -1,3 +1,9 @@
+/*
+ * Figures-4
+ * Kotdusov B.M 220
+ * 30.05.22
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

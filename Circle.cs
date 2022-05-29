@@ -1,36 +1,28 @@
 ﻿/*
- * Figures-1
+ * Figures-4
  * Kotdusov B.M 220
- * 10.04.22
+ * 30.05.22
  */
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Figures
 {
     [Serializable]
     public class Circle : FilledFigure
     {
-        private System.Drawing.Rectangle rect;
-        private int Radius { get; }
-
         public Circle(int startX, int startY, int endX, int endY)
             : base(startX, startY, endX, endY)
         {
 
         }
 
-        public override void Draw(System.Windows.Forms.PaintEventArgs e, Pen pen)
+        public override void Draw(System.Windows.Forms.PaintEventArgs e)
         {
-            rect = System.Drawing.Rectangle.FromLTRB(
-                        Math.Min(startX, endX),
-                        Math.Min(startY, endY),
-                        Math.Max(startX, endX),
-                        Math.Max(startY, endY)
-                    );
-            e.Graphics.DrawEllipse(pen, rect);
+            Pen pen = new Pen(this.Stroke.color, this.Stroke.width);
+            float radius = (float) Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((endY - startY), 2));
+            e.Graphics.DrawEllipse(pen, startX - radius, startY - radius, radius * 2, radius * 2);
         }
 
     }

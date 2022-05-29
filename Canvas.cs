@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Figures-4
+ * Kotdusov B.M 220
+ * 30.05.22
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -29,12 +35,17 @@ namespace Figures
             return this.figures.Count;
         }
 
-        public void Draw(PaintEventArgs e, Pen pen)
+        public void Draw(PaintEventArgs e)
         {
             foreach (var figure in this.figures)
             {
-                figure.Draw(e, pen);
+                figure.Draw(e);
             }
+        }
+
+        public void Clear()
+        {
+            this.figures.Clear();
         }
 
         public void Save(string filePath)

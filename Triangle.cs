@@ -1,7 +1,7 @@
 ﻿/*
- * Figures-1
+ * Figures-4
  * Kotdusov B.M 220
- * 10.04.22
+ * 30.05.22
  */
 
 using System;
@@ -20,8 +20,9 @@ namespace Figures
 
         }
 
-        public override void Draw(System.Windows.Forms.PaintEventArgs e, Pen pen)
+        public override void Draw(System.Windows.Forms.PaintEventArgs e)
         {
+            Pen pen = new Pen(this.Stroke.color, this.Stroke.width);
             e.Graphics.DrawPolygon(pen, new System.Drawing.Point[]
                 {
                     new System.Drawing.Point(startX, startY),

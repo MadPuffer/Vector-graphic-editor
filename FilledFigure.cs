@@ -1,10 +1,11 @@
 ﻿/*
- * Figures-1
+ * Figures-4
  * Kotdusov B.M 220
- * 10.04.22
+ * 30.05.22
  */
 
 using System;
+using System.Drawing;
 
 namespace Figures
 {
@@ -15,24 +16,24 @@ namespace Figures
 
         public FilledFigure(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY)
         {
-            Fill = new FillData("#000000");
+            Fill = new FillData(Color.White);
         }
 
-        public FilledFigure(int startX, int startY, int endX, int endY, string HEXStrokeColor, int width,
-            string HEXFillColor) : base(startX, startY, endX, endY, HEXStrokeColor, width)
+        public FilledFigure(int startX, int startY, int endX, int endY, Color strokeColor, int width,
+            Color fillColor) : base(startX, startY, endX, endY, strokeColor, width)
         {
-            Fill = new FillData(HEXFillColor);
+            Fill = new FillData(fillColor);
         }
     }
 
     [Serializable]
     public struct FillData
     {
-        private string color; // fill color in HEX
+        private Color color; // fill color in HEX
 
-        public FillData(string HEXColor)
+        public FillData(Color color)
         {
-            color = HEXColor;
+            this.color = color;
         }
     }
 }
