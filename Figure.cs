@@ -36,7 +36,7 @@ namespace Figures
             Stroke = new StrokeData(strokeColor, strokeWidth);
         }
 
-        public abstract void Draw(PaintEventArgs e);
+        public abstract void Draw(IDrawer drawer);
 
     }
 

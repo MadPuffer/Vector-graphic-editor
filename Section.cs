@@ -5,9 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Figures
 {
@@ -20,10 +17,9 @@ namespace Figures
 
         }
 
-        public override void Draw(System.Windows.Forms.PaintEventArgs e)
+        public override void Draw(IDrawer drawer)
         {
-            Pen pen = new Pen(this.Stroke.color, this.Stroke.width);
-            e.Graphics.DrawLine(pen, startX, startY, endX, endY);
+            drawer.DrawLine(this);
         }
 
     }

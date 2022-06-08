@@ -35,11 +35,11 @@ namespace Figures
             return this.figures.Count;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(IDrawer drawer)
         {
             foreach (var figure in this.figures)
             {
-                figure.Draw(e);
+                figure.Draw(drawer);
             }
         }
 

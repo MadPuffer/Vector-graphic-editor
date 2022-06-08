@@ -18,11 +18,9 @@ namespace Figures
 
         }
 
-        public override void Draw(System.Windows.Forms.PaintEventArgs e)
+        public override void Draw(IDrawer drawer)
         {
-            Pen pen = new Pen(this.Stroke.color, this.Stroke.width);
-            float radius = (float) Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((endY - startY), 2));
-            e.Graphics.DrawEllipse(pen, startX - radius, startY - radius, radius * 2, radius * 2);
+            drawer.DrawCircle(this);
         }
 
     }

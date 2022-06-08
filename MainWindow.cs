@@ -6,6 +6,7 @@
 
 using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Figures;
 
@@ -21,22 +22,28 @@ namespace Shapes
         public MainWindow()
         {
             InitializeComponent();
+
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance |
+                BindingFlags.NonPublic,
+                null, DrawCanvas, new object[] { true });
             canvas = new Canvas();
 
             openFileDialog.FileOk += delegate
             {
                 currentFigure = new Section(0, 0, 0, 0);
                 canvas.Load(openFileDialog.FileName);
-                this.Refresh();
             };
         }
 
 
         void DrawCanvas_Paint(object sender, PaintEventArgs e)
         {
+            WinformsDrawer drawer = new WinformsDrawer(e);
+
             if (canvas.GetCount() != 0)
-                canvas.Draw(e);
-            currentFigure.Draw(e);
+                canvas.Draw(drawer);
+            currentFigure.Draw(drawer);
 
         }
 
@@ -70,7 +77,6 @@ namespace Shapes
             {
                 case MouseButtons.Left:
                     IsInDrawMode = false;
-                    this.Refresh();
                     canvas.Add(currentFigure);
                     break;
                 case MouseButtons.Right:
@@ -82,13 +88,13 @@ namespace Shapes
 
         void DrawCanvas_MouseMove(object sender, MouseEventArgs e)
         {
+            DrawCanvas.Invalidate();
             switch (e.Button)
             {
                 case MouseButtons.Left:
                     if (!IsInDrawMode) return;
                     currentFigure.endX = e.X;
                     currentFigure.endY = e.Y;
-                    this.Refresh();
                     break;
                 case MouseButtons.Right:
                     break;
@@ -102,19 +108,19 @@ namespace Shapes
             switch (currentFigureType)
             {
                 case "Line":
-                    currentFigure = new Section(0, 0, 0, 0);
+                    currentFigure = new Section(e.X, e.Y, e.X, e.Y);
                     break;
                 case "Circle":
-                    currentFigure = new Circle(0, 0, 0, 0);
+                    currentFigure = new Circle(e.X, e.Y, e.X, e.Y);
                     break;
                 case "Triangle":
-                    currentFigure = new Triangle(0, 0, 0, 0);
+                    currentFigure = new Triangle(e.X, e.Y, e.X, e.Y);
                     break;
                 case "Rectangle":
-                    currentFigure = new Figures.Rectangle(0, 0, 0, 0);
+                    currentFigure = new Figures.Rectangle(e.X, e.Y, e.X, e.Y);
                     break;
                 default:
-                    currentFigure = new Section(0, 0, 0, 0);
+                    currentFigure = new Section(e.X, e.Y, e.X, e.Y);
                     break;
 
             }
@@ -130,7 +136,7 @@ namespace Shapes
                     currentFigure.startX = e.X;
                     currentFigure.startY = e.Y;
                     IsInDrawMode = true;
-                   
+                    this.Refresh();
                     break;
                 case MouseButtons.Right:
                     break;
@@ -156,8 +162,8 @@ namespace Shapes
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            // check delegate in constructor for more information
             openFileDialog.ShowDialog();    
-            this.Refresh();
         }
 
         private void btnCreateNew_Click(object sender, EventArgs e)
@@ -166,7 +172,6 @@ namespace Shapes
             saveFileDialog.FileName = "New Image";
             canvas.Clear();
             this.currentFigure = new Section(0, 0, 0, 0);
-            this.Refresh();
         }
     }
 }

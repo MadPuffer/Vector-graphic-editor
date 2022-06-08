@@ -5,9 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Figures
 {
@@ -20,15 +17,9 @@ namespace Figures
 
         }
 
-        public override void Draw(System.Windows.Forms.PaintEventArgs e)
+        public override void Draw(IDrawer drawer)
         {
-            Pen pen = new Pen(this.Stroke.color, this.Stroke.width);
-            e.Graphics.DrawPolygon(pen, new System.Drawing.Point[]
-                {
-                    new System.Drawing.Point(startX, startY),
-                    new System.Drawing.Point((endX + startX) / 2, endY),
-                    new System.Drawing.Point(endX, startY)
-                });
+            drawer.DrawTriangle(this);
         }
 
     }
